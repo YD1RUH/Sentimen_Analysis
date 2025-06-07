@@ -1,41 +1,34 @@
 import pandas as pd
 
-# Path CSV input
+# Path file CSV
 csv_path = r'.\sentimen_output.csv'
 
-# Baca file CSV
+# Baca CSV
 df = pd.read_csv(csv_path)
 
-# Tambahkan kolom label
-def get_sentiment_label(score):
-    if score < 0:
-        return 'negatif'
-    elif score == 0:
-        return 'netral'
-    else:
-        return 'positif'
+# Tampilkan kolom yang terbaca
+print("Kolom terbaca:", df.columns)
 
-# Pastikan sentiment numeric
+# Bersihkan spasi di nama kolom (jika ada)
+df.columns = df.columns.str.strip()
+
+# Konversi kolom sentiment ke numerik
 df['sentiment'] = pd.to_numeric(df['sentiment'], errors='coerce')
 
-# Tambahkan kolom label
-df['label'] = df['sentiment'].apply(get_sentiment_label)
+# Hitung total bilangan positif
+total_positif = df.loc[df['sentiment'] > 0, 'sentiment'].sum()
+
+# Hitung total bilangan negatif
+total_negatif = df.loc[df['sentiment'] < 0, 'sentiment'].sum()
+
+# Hitung jumlah baris yang bernilai 0
+jumlah_netral = (df['sentiment'] == 0).sum()
+
+# Hitung total baris yang diproses
+total_data = len(df)
 
 # Tampilkan hasil
-print(df[['sentiment', 'comment', 'label']])
-
-# Simpan output ke CSV baru
-output_path = r'.\sentimen_output_labeled.csv'
-df.to_csv(output_path, index=False, encoding='utf-8-sig')
-
-print(f"\nFile output sudah disimpan di: {output_path}")
-
-# Hitung dan tampilkan ringkasan
-positif_count = (df['label'] == 'positif').sum()
-netral_count = (df['label'] == 'netral').sum()
-negatif_count = (df['label'] == 'negatif').sum()
-
-print("\nKesimpulan:")
-print(f"positif: {positif_count}")
-print(f"netral: {netral_count}")
-print(f"negatif: {negatif_count}")
+print(f"\nTotal bilangan positif: {total_positif}")
+print(f"Total bilangan negatif: {total_negatif}")
+print(f"Jumlah sentimen netral (0): {jumlah_netral}")
+print(f"Total data sentiment yang diproses: {total_data}")
