@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Path CSV input
-csv_path = r'C:\Users\YD1RUH\Documents\kuliah\DataMining\pertemuan_11\Crawler_Media_Social\sentimen_output.csv'
+csv_path = r'.\sentimen_output.csv'
 
 # Baca file CSV
 df = pd.read_csv(csv_path)
@@ -25,7 +25,7 @@ df['label'] = df['sentiment'].apply(get_sentiment_label)
 print(df[['sentiment', 'comment', 'label']])
 
 # Simpan output ke CSV baru
-output_path = r'C:\Users\YD1RUH\Documents\kuliah\DataMining\pertemuan_11\Crawler_Media_Social\sentimen_output_labeled.csv'
+output_path = r'.\sentimen_output_labeled.csv'
 df.to_csv(output_path, index=False, encoding='utf-8-sig')
 
 print(f"\nFile output sudah disimpan di: {output_path}")

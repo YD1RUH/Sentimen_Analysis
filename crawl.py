@@ -8,7 +8,8 @@ from time import sleep
 import pandas as pd
 
 # Setup driver
-service = Service(executable_path=r"C:\Users\YD1RUH\Documents\kuliah\DataMining\pertemuan_11\Crawler_Media_Social\chromedriver.exe")
+
+service = Service(executable_path=r"<masukkan path chromedriver diekstrak>\chromedriver.exe")
 driver = webdriver.Chrome(service=service)
 
 try:
@@ -20,6 +21,8 @@ try:
     # Search for the video
     search = driver.find_element(By.NAME, "search_query")
     search.clear()
+
+    # inputan serach pada youtube dan akan memilih video paling atas hasil search youtube
     search.send_keys("ilc Jaksa Dijaga Tentara Negara aman atau justru bahaya")
     search.send_keys(Keys.ENTER)
     sleep(5)
@@ -47,7 +50,9 @@ try:
     
     # Save to CSV
     df = pd.DataFrame({"comment": comment_list})
-    df.to_csv("youtube_comments_1.csv", index=False)
+
+    # output disimpan dengan nama crawl.csv, file ini yang akan digunakan pada input file di orange3
+    df.to_csv("crawl.csv", index=False)
     
 finally:
     driver.quit()
