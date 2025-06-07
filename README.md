@@ -1,4 +1,8 @@
 # Sentimen_Analysis
+
+## Background this project
+this is my college assignment data mining at ```Universitas Pamulang```
+
 ## Depedencies
 1. install python3: [download python](https://www.python.org/downloads/)
 2. install python3 selenium: ```python3 -m pip install selenium```
